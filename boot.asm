@@ -31,7 +31,12 @@ align 16
 stack_bottom:
 resb 16384 ; 16 KiB
 stack_top:
- 
+
+section .data
+gdtr DW 0 ; For limit storage
+     DD 0 ; For base storage
+
+gdt  DD 0,0,0,0,0,0
 ; The linker script specifies _start as the entry point to the kernel and the
 ; bootloader will jump to this position once the kernel has been loaded. It
 ; doesn't make sense to return from this function as the bootloader is gone.
@@ -63,6 +68,28 @@ _start:
 	; yet. The GDT should be loaded here. Paging should be enabled here.
 	; C++ features such as global constructors and exceptions will require
 	; runtime support to work as well.
+
+	
+
+    xor eax, eax
+    mov [gdt], eax
+    mov [gdt+4], eax
+    mov eax, 0x0000FFFF
+    mov [gdt+8], eax
+    mov eax, 0x00CF9A00
+    mov [gdt+12], eax
+    mov eax, 0x0000FFFF
+    mov [gdt+16], eax
+    mov eax, 0x00CF9200
+    mov [gdt+20], eax
+ 
+	
+	MOV   EAX, gdt
+	MOV   [gdtr + 2], EAX
+	MOV   AX, 24
+	MOV   [gdtr], AX
+	LGDT  [gdtr]
+	
  
 	; Enter the high-level kernel. The ABI requires the stack is 16-byte
 	; aligned at the time of the call instruction (which afterwards pushes
