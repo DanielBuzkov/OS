@@ -70,25 +70,6 @@ _start:
 	; runtime support to work as well.
 
 	
-
-    ;xor eax, eax
-    ;mov [gdt], eax
-    ;mov [gdt+4], eax
-    ;mov eax, 0x0000FFFF
-    ;mov [gdt+8], eax
-   ; mov eax, 0x00CF9A00
-   ; mov [gdt+12], eax
-    ;mov eax, 0x0000FFFF
-   ; mov [gdt+16], eax
-   ; mov eax, 0x00CF9200
-   ; mov [gdt+20], eax
- 
-	
-	;MOV   EAX, gdt
-	;MOV   [gdtr + 2], EAX
-	;MOV   AX, 24
-	;MOV   [gdtr], AX
-	;LGDT  [gdtr]
 	
  
 	; Enter the high-level kernel. The ABI requires the stack is 16-byte

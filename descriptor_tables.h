@@ -51,7 +51,7 @@ struct idt_ptr_struct
 typedef struct idt_ptr_struct idt_ptr_t;
 
 // extern ASM ISR handlers.
-/*extern void isr0 ();
+extern void isr0 ();
 extern void isr1 ();
 extern void isr2 ();
 extern void isr3 ();
@@ -82,5 +82,5 @@ extern void isr27();
 extern void isr28();
 extern void isr29();
 extern void isr30();
-extern void isr31();*/
+extern void isr31();
 

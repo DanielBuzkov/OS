@@ -5,6 +5,7 @@
 #include "common.h"
 #include "descriptor_tables.h"
 
+
  
 /* Hardware text mode color constants. */
 enum vga_color 
@@ -133,7 +134,6 @@ void kernel_main(void)
 	
 	/* Initialize terminal interface */
 	terminal_initialize();
- 
-	/* Newline support is left as an exercise. */
-	terminal_writestring("Hello, kernel World!\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\n\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\n\nbest os eveaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nbest os ever!!!:)\nabc");
+ 	asm volatile ("int $0x3");
+	asm volatile ("int $0x4");
 }
