@@ -20,5 +20,6 @@ $(TARGET): $(OBJECTS)
 	$(NASM) $<
 
 clean:
-	rm $(TARGET)
 	rm *.o
+	rm $(TARGET)
+
