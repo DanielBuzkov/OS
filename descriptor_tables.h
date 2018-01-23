@@ -1,4 +1,5 @@
-
+#ifndef DESCRIPTOR_TABLES_H
+#define DESCRIPTOR_TABLES_H
 
 #include "common.h"
 #include <stddef.h>
@@ -83,4 +84,6 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
+
+#endif //DESCRIPTOR_TABLES_H
 
