@@ -135,5 +135,5 @@ void kernel_main(void)
 	/* Initialize terminal interface */
 	terminal_initialize();
  	asm volatile ("int $0x3");
-	asm volatile ("int $0x4");
+	asm volatile ("int $0x5");
 }

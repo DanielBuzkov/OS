@@ -36,7 +36,7 @@ ISR_ERRCODE   13
 ISR_ERRCODE   14
 ISR_NOERRCODE 15
 ISR_NOERRCODE 16
-ISR_NOERRCODE 17
+ISR_ERRCODE 17
 ISR_NOERRCODE 18
 ISR_NOERRCODE 19
 ISR_NOERRCODE 20
@@ -49,7 +49,7 @@ ISR_NOERRCODE 26
 ISR_NOERRCODE 27
 ISR_NOERRCODE 28
 ISR_NOERRCODE 29
-ISR_NOERRCODE 30
+ISR_ERRCODE 30
 ISR_NOERRCODE 31
  
 ; In isr.c
@@ -63,6 +63,7 @@ isr_common_stub:
 
     mov ax, ds               ; Lower 16-bits of eax = ds.
     push eax                 ; save the data segment descriptor
+    push esp
 
     mov ax, 0x10  ; load the kernel data segment descriptor
     mov ds, ax
@@ -72,6 +73,7 @@ isr_common_stub:
 
     call isr_handler
 
+    pop ebx
     pop ebx        ; reload the original data segment descriptor
     mov ds, bx
     mov es, bx
