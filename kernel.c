@@ -10,7 +10,11 @@ void kernel_main(void)
 	
 	/* Initialize terminal interface */
 	terminal_initialize();
+	asm volatile ("sti");
  	asm volatile ("int $0x3");
-	asm volatile ("int $0x5");
 	terminal_writestring("best os eveeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\nabc");
+	while(1)
+	{
+		asm volatile ("hlt");
+	}
 }
