@@ -54,12 +54,12 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
 void scroll_down()
 {
 	//move everything up
-	for(int i = 0; i < VGA_WIDTH*(VGA_HEIGHT-1); i++)
+	for(size_t i = 0; i < VGA_WIDTH*(VGA_HEIGHT-1); i++)
 	{
 		terminal_buffer[i] = terminal_buffer[i+VGA_WIDTH];
 	}
 	//clean the last line
-	for(int i = 0; i < VGA_WIDTH; i++)
+	for(size_t i = 0; i < VGA_WIDTH; i++)
 	{
 		terminal_putentryat(' ', terminal_color, i, VGA_HEIGHT - 1);
 	}
