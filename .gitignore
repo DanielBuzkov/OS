@@ -1,2 +1,5 @@
 .vscode
 isodir
+*.o
+*.bin
+*.iso
