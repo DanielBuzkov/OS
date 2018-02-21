@@ -14,9 +14,7 @@ static inline uint16_t vga_entry(unsigned char uc, uint8_t color)
 	return (uint16_t) uc | (uint16_t) color << 8;
 }
  
- 
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
+
  
 size_t terminal_row;
 size_t terminal_column;
@@ -113,7 +111,7 @@ void terminal_read(void)
 void move_cursor()
 {
    // The screen is 80 characters wide...
-   uint16_t cursorLocation = terminal_row * 80 + terminal_column+1;
+   uint16_t cursorLocation = terminal_row * VGA_WIDTH + terminal_column+1;
    outb(0x3D4, 14);                  // setting the high cursor byte.
    outb(0x3D5, cursorLocation >> 8); // Send the high cursor byte.
    outb(0x3D4, 15);                  // setting the low cursor byte.
@@ -144,4 +142,27 @@ void print_decimal(int num)
         num = num % mod;
         mod /= 10;
     }
+
+//get line from terminal
+//return 0 if got all command and 1 else 
+void terminal_get_line(uint8_t* buff)
+{
+	uint16_t end = terminal_row * VGA_WIDTH + terminal_column;
+	uint16_t corser = end - 1;
+	while((corser % VGA_WIDTH) != 0)
+	{
+		corser--;
+	}
+
+	uint16_t i = 0;
+
+	while(corser < end)
+	{
+		buff[i] = terminal_buffer[corser];
+		i++;
+		corser++;
+	}
+	buff[i] = 0;
+
+	trimwhitespace(buff);
 }

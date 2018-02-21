@@ -119,4 +119,22 @@ char* get_param(char* str)
         param[j++] = str[i++];
 
     return param;
+
+void trimwhitespace(char *str)
+{
+  char *end;
+
+  // Trim leading space
+  while((char)*str == ' ') str++;
+
+  if(*str == 0)  // All spaces?
+    return;
+
+  // Trim trailing space
+  end = str + strlen(str) - 1;
+  while(end > str && (char)*end == ' ') end--;
+
+  // Write new null terminator
+  *(end+1) = 0;
+
 }

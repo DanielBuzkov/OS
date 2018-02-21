@@ -17,5 +17,7 @@ char *strcat(char *dest, const char *src);
 int strlen(const char* str);
 char* get_command(char* str);
 char* get_param(char* str);
+size_t strlen(const char* str);
+void trimwhitespace(char *str);
 
 #endif // COMMON_H
