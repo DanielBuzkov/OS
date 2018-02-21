@@ -20,10 +20,10 @@ void isr_handler(registers_t* regs)
         interrupt_handlers[regs->int_no](regs);
     }
     
-    terminal_writestring("recieved interrupt: ");
+    /*terminal_writestring("recieved interrupt: ");
     char num[3] = {regs->int_no/10 + '0',regs->int_no%10+'0', 0};
     terminal_writestring(num);
-    terminal_writestring("\n");
+    terminal_writestring("\n");*/
 }
 
 void send_reset(uint32_t n)
@@ -48,7 +48,10 @@ void register_interrupt_handler(uint8_t n, isr_t handler)
 void keyboard_interrupt_handler(registers_t* regs)
 {
     uint8_t c = inb(0x60);
-    char num[4] = {c/100 + '0',(c/10)%10+'0',c%10+'0', 0};
-    terminal_writestring(num);
-    terminal_writestring("\n");
+    char ascii = toChar(c);
+
+    if(ascii != 0)
+        terminal_putchar(ascii);
+        
+    return;
 }

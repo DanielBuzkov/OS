@@ -2,7 +2,7 @@
 #include "descriptor_tables.h"
 #include "screen.h"
 
-#include "keyboard.h"
+//#include "keyboard.h"
 
 
 #include "isr.h"
@@ -20,10 +20,10 @@ void kernel_main(void)
 	
 
 	/* Initialize terminal interface */
-	terminal_initialize(); //screen.c
-	asm volatile ("sti");  //interupts.asm
+	terminal_initialize();
+	asm volatile ("sti");  
  	asm volatile ("int $0x3");
-	terminal_writestring("Welcome to O5");
+	terminal_writestring("Welcome to O5\n");
 	while(!isExit())
 	{
 		asm volatile ("hlt");

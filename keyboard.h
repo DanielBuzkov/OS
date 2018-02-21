@@ -3,12 +3,12 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
 #include "screen.h"
 #include "common.h"
 
 #define ENTER 28 //SC of Enter key
 #define DELETE 14 //SC of Backscpae key
+#define SCTA_LEN 83 //Scan Code To Ascii
 
 const char scanCodeToAscii[] = {
     00, //scancode 0 does not exist
@@ -39,7 +39,7 @@ const char scanCodeToAscii[] = {
     112,//25 = 'p'
     91, //26 = '['
     93, //27 = ']'
-    13, //28 = ENTER
+    10, //28 = ENTER
     00, //29 = CTRL (does not have ascii)
     97, //30 = 'a'
     115,//31 = 's'
@@ -97,12 +97,12 @@ const char scanCodeToAscii[] = {
     83  //83 = delete
 };
 
-int exit_flag = 0;
+uint8_t exit_flag = 0;
 
-char toChar(int scanCode);
+char toChar(uint8_t scanCode);
 void commandHandler(char *command);
-int pressed_enter(); //End Of Command
-int isExit();
+uint8_t pressed_enter(); //End Of Command
+uint8_t isExit();
 void exit();
 
 #endif

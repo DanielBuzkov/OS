@@ -25,7 +25,7 @@ void terminal_initialize()
 {
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_LIGHT_BLUE);
 	terminal_buffer = (uint16_t*) 0xB8000;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) 
 	{
@@ -46,7 +46,7 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
 {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = vga_entry(c, color);
-	move_cursor();
+	move_cursor(1);
 }
 
 void scroll_down()
@@ -73,7 +73,7 @@ void terminal_putchar(char c)
 			terminal_row--;
 			scroll_down();
 		}
-		
+		move_cursor(0);
 	}
 	else
 	{
@@ -108,28 +108,27 @@ void terminal_read(void)
 }
 
 // Updates the hardware cursor.
-void move_cursor()
+void move_cursor(uint16_t offset)
 {
    // The screen is 80 characters wide...
-   uint16_t cursorLocation = terminal_row * VGA_WIDTH + terminal_column+1;
+   uint16_t cursorLocation = terminal_row * VGA_WIDTH + terminal_column + offset;
    outb(0x3D4, 14);                  // setting the high cursor byte.
    outb(0x3D5, cursorLocation >> 8); // Send the high cursor byte.
    outb(0x3D4, 15);                  // setting the low cursor byte.
    outb(0x3D5, cursorLocation);      // Send the low cursor byte.
 }
 
-void print_decimal(int num)
-{
-    
+void print_decimal(int32_t num)
+{  
     if (num < 0)
     {
-        putchar('-');
+        terminal_putchar('-');
         num *= -1;
     }
     else if (num == 0)
         terminal_putchar('0');
 
-    int mod = 1;
+    int32_t mod = 1;
 
     while (mod < num)
         mod *= 10;
@@ -142,6 +141,7 @@ void print_decimal(int num)
         num = num % mod;
         mod /= 10;
     }
+}
 
 //get line from terminal
 //return 0 if got all command and 1 else 

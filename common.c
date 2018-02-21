@@ -38,10 +38,10 @@ void memset(uint8_t *dest, uint8_t val, uint32_t len)
 
 // Compare two strings. Should return -1 if 
 // str1 < str2, 0 if they are equal or 1 otherwise.
-int strcmp(char *str1, char *str2)
+uint32_t strcmp(char *str1, char *str2)
 {
-      int i = 0;
-      int failed = 0;
+      uint32_t i = 0;
+      uint32_t failed = 0;
       while(str1[i] != '\0' && str2[i] != '\0')
       {
           if(str1[i] != str2[i])
@@ -86,39 +86,33 @@ char *strcat(char *dest, const char *src)
     return dest;
 }
 
-int strlen(const char* str) 
+size_t strlen(const char* str) 
 {
-  int len = 0;
+  size_t len = 0;
   while (str[len])
     len++;
   return len;
 }
 
-char* get_command(char* str)
+void get_command(char* str, char* command)
 {
-    char* command = "";
-
     int i = 0;
     while (str[i] != ' ' && i < strlen(str))
     {
         command[i] = str[i];
         i++;
     }
-
-    return command; 
 }
 
-char* get_param(char* str)
+void get_param(char* str, char* param)
 {
-    char* param = "";
-
     int i = 0, j = 0;
     while(i < strlen(str) && str[i++] != ' ');
     
     while(i < strlen(str))
         param[j++] = str[i++];
 
-    return param;
+}
 
 void trimwhitespace(char *str)
 {
