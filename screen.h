@@ -36,5 +36,6 @@ void terminal_setcolor(uint8_t color) ;
 void terminal_initialize(void) ;
 void terminal_get_line();
 void move_cursor();
+void print_decimal(int num);
 
 #endif //SCREEN_H

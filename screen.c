@@ -52,12 +52,12 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
 void scroll_down()
 {
 	//move everything up
-	for(size_t i = 0; i < VGA_WIDTH*(VGA_HEIGHT-1); i++)
+	for(int i = 0; i < VGA_WIDTH*(VGA_HEIGHT-1); i++)
 	{
 		terminal_buffer[i] = terminal_buffer[i+VGA_WIDTH];
 	}
 	//clean the last line
-	for(size_t i = 0; i < VGA_WIDTH; i++)
+	for(int i = 0; i < VGA_WIDTH; i++)
 	{
 		terminal_putentryat(' ', terminal_color, i, VGA_HEIGHT - 1);
 	}
@@ -102,6 +102,10 @@ void terminal_writestring(const char* data)
 	terminal_write(data, strlen(data));
 }
  
+void terminal_read(void)
+{
+	return;
+}
 
 // Updates the hardware cursor.
 void move_cursor()
@@ -113,6 +117,31 @@ void move_cursor()
    outb(0x3D4, 15);                  // setting the low cursor byte.
    outb(0x3D5, cursorLocation);      // Send the low cursor byte.
 }
+
+void print_decimal(int num)
+{
+    
+    if (num < 0)
+    {
+        putchar('-');
+        num *= -1;
+    }
+    else if (num == 0)
+        terminal_putchar('0');
+
+    int mod = 1;
+
+    while (mod < num)
+        mod *= 10;
+
+    mod /= 10;
+
+    while (mod)
+    {
+        terminal_putchar('0' + num / mod);
+        num = num % mod;
+        mod /= 10;
+    }
 
 //get line from terminal
 //return 0 if got all command and 1 else 
