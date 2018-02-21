@@ -29,6 +29,8 @@ void scroll_down();
 void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) ;
 void terminal_setcolor(uint8_t color) ;
 void terminal_initialize(void) ;
+void terminal_read(void);
 void move_cursor();
+void print_decimal(int num);
 
 #endif //SCREEN_H

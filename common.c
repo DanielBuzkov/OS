@@ -1,6 +1,5 @@
-
-
 #include "common.h"
+#include <stddef.h>
 
 // Write a byte out to the specified port.
 void outb(uint16_t port, uint8_t value)
@@ -68,7 +67,6 @@ char *strcpy(char *dest, const char *src)
       *dest++ = *src++;
     }
     while (*src != 0);
-    return dest;
 }
 
 // Concatenate the NULL-terminated string src onto
@@ -88,10 +86,37 @@ char *strcat(char *dest, const char *src)
     return dest;
 }
 
-size_t strlen(const char* str) 
+int strlen(const char* str) 
 {
-  size_t len = 0;
+  int len = 0;
   while (str[len])
     len++;
   return len;
+}
+
+char* get_command(char* str)
+{
+    char* command = "";
+
+    int i = 0;
+    while (str[i] != ' ' && i < strlen(str))
+    {
+        command[i] = str[i];
+        i++;
+    }
+
+    return command; 
+}
+
+char* get_param(char* str)
+{
+    char* param = "";
+
+    int i = 0, j = 0;
+    while(i < strlen(str) && str[i++] != ' ');
+    
+    while(i < strlen(str))
+        param[j++] = str[i++];
+
+    return param;
 }
