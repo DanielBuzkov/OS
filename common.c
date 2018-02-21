@@ -95,3 +95,23 @@ size_t strlen(const char* str)
     len++;
   return len;
 }
+
+
+void trimwhitespace(char *str)
+{
+  char *end;
+
+  // Trim leading space
+  while((char)*str == ' ') str++;
+
+  if(*str == 0)  // All spaces?
+    return;
+
+  // Trim trailing space
+  end = str + strlen(str) - 1;
+  while(end > str && (char)*end == ' ') end--;
+
+  // Write new null terminator
+  *(end+1) = 0;
+
+}
