@@ -25,7 +25,7 @@ void terminal_initialize()
 {
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_LIGHT_BLUE);
+	terminal_color = vga_entry_color(VGA_COLOR_GREEN, VGA_COLOR_BLACK);
 	terminal_buffer = (uint16_t*) 0xB8000;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) 
 	{
@@ -130,7 +130,7 @@ void print_decimal(int32_t num)
 
     int32_t mod = 1;
 
-    while (mod < num)
+    while (mod <= num)
         mod *= 10;
 
     mod /= 10;
