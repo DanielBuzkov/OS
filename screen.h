@@ -6,7 +6,6 @@
 
 #define MAX_COMMAND_LEN 256
 
-
 /* Hardware text mode color constants. */
 enum vga_color 
 {

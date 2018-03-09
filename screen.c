@@ -95,6 +95,10 @@ void terminal_writestring(const char* data)
 	terminal_write(data, strlen(data));
 }
  
+void terminal_read(void)
+{
+	return;
+}
 
 // Updates the hardware cursor.
 void move_cursor(int16_t offset)

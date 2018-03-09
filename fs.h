@@ -1,5 +1,4 @@
 
-
 #ifndef FS_H
 #define FS_H
 
@@ -36,7 +35,9 @@ struct dirent
     uint32_t ino;     // Inode number
 };
 
+
 extern fs_node_t *fs_root; // The root of the filesystem
+
 
 
 uint32_t read_fs(fs_node_t *node, uint32_t offset, uint32_t size, char *buffer);
