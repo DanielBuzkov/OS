@@ -11,9 +11,13 @@ uint16_t inw(uint16_t port);
 
 void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len);
 void memset(uint8_t *dest, uint8_t val, uint32_t len);
-int strcmp(char *str1, char *str2);
+uint32_t strcmp(char *str1, char *str2);
 char *strcpy(char *dest, const char *src);
 char *strcat(char *dest, const char *src);
-size_t strlen(const char* str);
+uint32_t strlen(const char* str);
+void get_command(char* str, char* command);
+void get_param(char* str, char* param);
+uint8_t to_decimal(char* str);
+void trimwhitespace(char *str);
 
 #endif // COMMON_H

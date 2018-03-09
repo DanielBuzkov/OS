@@ -1,6 +1,5 @@
-
-
 #include "common.h"
+#include <stddef.h>
 
 // Write a byte out to the specified port.
 void outb(uint16_t port, uint8_t value)
@@ -39,10 +38,10 @@ void memset(uint8_t *dest, uint8_t val, uint32_t len)
 
 // Compare two strings. Should return -1 if 
 // str1 < str2, 0 if they are equal or 1 otherwise.
-int strcmp(char *str1, char *str2)
+uint32_t strcmp(char *str1, char *str2)
 {
-      int i = 0;
-      int failed = 0;
+      uint32_t i = 0;
+      uint32_t failed = 0;
       while(str1[i] != '\0' && str2[i] != '\0')
       {
           if(str1[i] != str2[i])
@@ -68,7 +67,6 @@ char *strcpy(char *dest, const char *src)
       *dest++ = *src++;
     }
     while (*src != 0);
-    return dest;
 }
 
 // Concatenate the NULL-terminated string src onto
@@ -94,4 +92,61 @@ size_t strlen(const char* str)
   while (str[len])
     len++;
   return len;
+}
+
+void get_command(char* str, char* command)
+{
+    int i = 0;
+    while (str[i] != ' ' && i < strlen(str))
+    {
+        command[i] = str[i];
+        i++;
+    }
+
+    command[i] = '\0';
+}
+
+void get_param(char* str, char* param)
+{
+    int i = 0, j = 0;
+    while(i < strlen(str) && str[i++] != ' ');
+    
+    while(i < strlen(str))
+        param[j++] = str[i++];
+    
+    param[i] = '\0';
+
+}
+
+void trimwhitespace(char *str)
+{
+    char *end;
+
+    // Trim leading space
+    while((char)*str == ' ') str++;
+
+    if(*str == 0)  // All spaces?
+    return;
+
+    // Trim trailing space
+    end = str + strlen(str) - 1;
+    while(end > str && (char)*end == ' ') end--;
+
+    // Write new null terminator
+    *(end+1) = 0;
+}
+
+uint8_t to_decimal(char* str)
+{
+    //no negatives
+    uint8_t ret = 0, i = 0;
+    char* temp = str;
+    
+    for (i = 0; i < strlen(temp); i++)
+    {
+        ret *= 10;
+        ret += temp[i] - '0';
+    }
+    
+    return ret;
 }

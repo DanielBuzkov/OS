@@ -1,4 +1,4 @@
-OBJECTS = kernel.o descriptor_tables.o dt.o boot.o common.o interupts.o isr.o screen.o
+OBJECTS = kernel.o descriptor_tables.o dt.o boot.o common.o interupts.o screen.o keyboard.o isr.o initrd.o fs.o
 CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 LFLAGS = -ffreestanding -O2 -nostdlib -lgcc
 CC = i686-elf-gcc
@@ -22,4 +22,3 @@ $(TARGET): $(OBJECTS)
 clean:
 	rm *.o
 	rm $(TARGET)
-

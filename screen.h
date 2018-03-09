@@ -1,6 +1,12 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#define VGA_WIDTH 80
+#define VGA_HEIGHT 25 
+
+#define MAX_COMMAND_LEN 256
+
+
 /* Hardware text mode color constants. */
 enum vga_color 
 {
@@ -29,6 +35,10 @@ void scroll_down();
 void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) ;
 void terminal_setcolor(uint8_t color) ;
 void terminal_initialize(void) ;
-void move_cursor();
+void terminal_get_line(uint8_t* buff);
+void move_cursor(int16_t offset);
+void print_decimal(int32_t num);
+void change_color(uint8_t fg, uint8_t bg);
+void terminal_delete();
 
 #endif //SCREEN_H
