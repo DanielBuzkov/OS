@@ -49,6 +49,16 @@ static fs_node_t *initrd_finddir(fs_node_t *node, char *name)
     return 0;
 }
 
+static void initrd_exec(fs_node_t *node)
+{
+    initrd_file_header_t header = file_headers[node->inode];
+    typedef void (*call_t)(size_t);
+    call_t start_program = (call_t) header.offset;
+    start_program(start_program);
+    
+    //asm volatile("jmp %0" : : ""(header.offset));
+}
+
 fs_node_t *initialise_initrd(uint32_t location)
 {
     // Initialise the main and file header pointers 
@@ -63,6 +73,7 @@ fs_node_t *initialise_initrd(uint32_t location)
     initrd_root.read = 0;
     initrd_root.readdir = &initrd_readdir;
     initrd_root.finddir = &initrd_finddir;
+    initrd_root.exec = 0;
 
     nroot_nodes = initrd_header->nfiles;
 
@@ -77,10 +88,18 @@ fs_node_t *initialise_initrd(uint32_t location)
         strcpy(root_nodes[i].name, &file_headers[i].name);
         root_nodes[i].length = file_headers[i].length;
         root_nodes[i].inode = i;
-        root_nodes[i].flags = FS_FILE;
+        if(root_nodes[i].name[0] == 'e')
+        {
+            root_nodes[i].flags = FS_EXEC;
+        }
+        else
+        {
+            root_nodes[i].flags = FS_FILE;
+        }
         root_nodes[i].read = &initrd_read;
         root_nodes[i].readdir = 0;
         root_nodes[i].finddir = 0;
+        root_nodes[i].exec = &initrd_exec;
     }
     return &initrd_root;
 }

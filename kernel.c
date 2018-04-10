@@ -15,6 +15,7 @@ void kernel_main(multiboot_info_t* mboot_ptr)
 
 	init_descriptor_tables(); //descriptor_table.c
 	register_interrupt_handler(33, keyboard_interrupt_handler);
+	register_interrupt_handler(31, print_handle);
 
 	/* Initialize terminal interface */
 	terminal_initialize();
@@ -30,28 +31,6 @@ void kernel_main(multiboot_info_t* mboot_ptr)
 
 		terminal_writestring("Welcome to O5!\n");
 
-		/*
-		uint32_t i = 0;
-		struct dirent *node = 0;
-		while ( (node = readdir_fs(fs_root, i)) != 0)
-		{
-			terminal_writestring("Found file ");
-			terminal_writestring(node->name);
-			fs_node_t *fsnode = finddir_fs(fs_root, node->name);
-
-			terminal_writestring("\n contents: \"");
-			char buf[256];
-			uint32_t sz = read_fs(fsnode, 0, 256, buf);
-			uint32_t j;
-			for (j = 0; j < sz; j++)
-			{
-				terminal_putchar(buf[j]);
-			}
-
-			terminal_writestring("\"\n");
-			
-			i++;
-		}*/
 
 	}
 	else

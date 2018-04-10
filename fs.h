@@ -6,6 +6,7 @@
 
 #define FS_FILE        0x01
 #define FS_DIRECTORY   0x02
+#define FS_EXEC        0x03
 
 struct fs_node;
 
@@ -27,6 +28,7 @@ typedef struct fs_node
     read_type_t read;
     readdir_type_t readdir;
     finddir_type_t finddir;
+    exec_type_t exec;
 } fs_node_t;
 
 struct dirent
@@ -44,5 +46,7 @@ uint32_t read_fs(fs_node_t *node, uint32_t offset, uint32_t size, char *buffer);
 
 struct dirent *readdir_fs(fs_node_t *node, uint32_t index);
 fs_node_t *finddir_fs(fs_node_t *node, char *name);
+
+void exec_fs(fs_node_t *node);
 
 #endif
