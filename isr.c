@@ -64,3 +64,8 @@ void keyboard_interrupt_handler(registers_t* regs)
         
     return;
 }
+
+void print_handle(registers_t* regs)
+{
+    terminal_writestring(regs->ebx);
+}

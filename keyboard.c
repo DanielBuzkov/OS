@@ -124,9 +124,15 @@ void commandHandler(char *str)
     }
     else if( (fsnode = finddir_fs(fs_root, command)) != 0 )
     {
-        //to finish?
-        terminal_writestring(fsnode->name);
-
+        if(fsnode->flags == FS_EXEC)
+        {
+            terminal_writestring("\n");
+            exec_fs(fsnode);
+        }
+        else
+        {
+            terminal_writestring("\nfile not executable\n");
+        }
     }
     else if(strcmp(command, "exit") == 0)
     {
