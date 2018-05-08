@@ -17,10 +17,13 @@ void kernel_main(multiboot_info_t* mboot_ptr)
 	register_interrupt_handler(33, keyboard_interrupt_handler);
 	register_interrupt_handler(31, print_handle);
 
+	
+
 	/* Initialize terminal interface */
 	terminal_initialize();
 	change_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLUE);
 
+	initAcpi();
 	
 	if(mboot_ptr->mods_count > 0)
 	{
@@ -47,4 +50,9 @@ void kernel_main(multiboot_info_t* mboot_ptr)
 	}
 
 	terminal_writestring("Good Bye Sweety :) <3\n");
+	
+	//acpiPowerOff();
+	privatePowerOff();
+	terminal_writestring("Good Bye Sweety :( <3\n");
+
 }

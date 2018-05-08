@@ -7,6 +7,11 @@ void outb(uint16_t port, uint8_t value)
     asm volatile ("outb %1, %0" : : "dN" (port), "a" (value));
 }
 
+void outw(uint16_t port, uint16_t value)
+{
+    asm volatile ("outw %1, %0" : : "dN" (port), "a" (value));
+}
+
 uint8_t inb(uint16_t port)
 {
     uint8_t ret;
@@ -43,6 +48,26 @@ uint32_t strcmp(char *str1, char *str2)
       uint32_t i = 0;
       uint32_t failed = 0;
       while(str1[i] != '\0' && str2[i] != '\0')
+      {
+          if(str1[i] != str2[i])
+          {
+              failed = 1;
+              break;
+          }
+          i++;
+      }
+      // why did the loop exit?
+      if( (str1[i] == '\0' && str2[i] != '\0') || (str1[i] != '\0' && str2[i] == '\0') )
+          failed = 1;
+  
+      return failed;
+}
+
+uint32_t memcmp(char *str1, char *str2, uint32_t len)
+{
+      uint32_t i = 0;
+      uint32_t failed = 0;
+      while(str1[i] != '\0' && str2[i] != '\0' && len-- > 0)
       {
           if(str1[i] != str2[i])
           {
