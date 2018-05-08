@@ -48,7 +48,7 @@ void commandHandler(char *str)
         }
         else
         {
-            terminal_writestring("\nO5 bush, version 2.1.3 \n");
+            terminal_writestring("\nO5 bash \n");
             terminal_writestring("--Enter a file's name to execute it.\n");
             terminal_writestring("--Enter 'help' for help\n");
             terminal_writestring("--Enter 'print' with file name to print the content of the file\n");
